@@ -148,6 +148,7 @@ security-agent と github-operator を含めて、公開前チェックを並列
 
 ## GitHub 公開前提の基本ルール
 - `work/` は Git に含めない
+- push 前に `git status --ignored` で `work/` が追跡対象に入っていないことを確認する
 - トークン、個人情報、顧客データ、実リポジトリ由来の秘密情報は貼らない
 - 実運用の secret は環境変数やローカル secure store で持ち、この repo に置かない
 - 初回公開前に `SECURITY.md` のチェックリストで確認する
