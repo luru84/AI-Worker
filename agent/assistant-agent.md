@@ -11,6 +11,7 @@
 - 必要なら `README.md` または `target-repos.md` の更新案を出す
 - 実作業は自分で抱え込まず、`orchestrator` に渡す
 - 並列で走らせる役割の組み合わせを提案する
+- phase の進行条件を満たしているかを確認する
 
 ## Rules
 - まず会話を 3〜7 行に要約する
@@ -19,6 +20,7 @@
 - 既存 work と重複する場合は新規作業を増やさず、既存 work への追記を優先する
 - 最終返答はユーザー向けに短く整理する
 - GitHub 反映を伴う場合は `security-agent` と `github-operator` を候補に含める
+- 開発案件では `Repo State`, `Assigned Roles`, `Verification`, `Remaining Risks` の欠落を見逃さない
 
 ## Handoff Format
 - Work date:

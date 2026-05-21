@@ -35,6 +35,7 @@ AI-Worker/
 │  └─ context/README.md
 ├─ docs/
 │  ├─ ARCHITECTURE.md
+│  ├─ DEVELOPMENT_FLOW.md
 │  ├─ DATA_DICTIONARY.md
 │  └─ EVALUATION.md
 ├─ SECURITY.md
@@ -59,6 +60,12 @@ AI-Worker/
 3. `README.md` に work の定義を書く
 4. `assistant-agent` が必要な役割を選び、`orchestrator` に割り振る
 5. 実装が必要な時だけ兄弟リポジトリを対象にする
+
+## 開発フロー
+- 標準の AI 駆動フローは [docs/DEVELOPMENT_FLOW.md](/Users/hashimura/Dev/AI-Worker/docs/DEVELOPMENT_FLOW.md:1) を使う
+- 開発案件では `Intake -> Routing -> Research/Pre-Review -> Branch Setup -> Implementation -> Verification -> Publish -> Closeout` の順で進める
+- 各 phase は `進んでよい条件` を満たすまで次へ進まない
+- branch 作成、PR、merge、branch 削除は `github-operator` の責務として扱う
 
 ## 最小の work 例
 ```md
@@ -100,6 +107,15 @@ AI-Worker を GitHub に上げる前提で最終確認したい。
 security-agent と github-operator を含めて、公開前チェックを並列で進めてほしい。
 ```
 
+### 例4: 開発案件を flow に乗せる
+```txt
+assistant-agentへ:
+repo-a のモバイルレイアウトを見直したい。
+まず現状の問題整理、次に実装方針、branch 作成、実装、review、qa、PR まで
+AI 同士で段階ごとにチェックしながら進めてほしい。
+work には Repo State と Remaining Risks まで残して。
+```
+
 ## README と補助ファイルの線引き
 - `README.md`: 必須。作業定義の本体
 - `intake.md`: 会話メモを分けたい時だけ作る
@@ -107,6 +123,13 @@ security-agent と github-operator を含めて、公開前チェックを並列
 - `task.md`: 役割分担を明示したい時だけ作る
 - `target-repos.md`: 実装対象が複数ある時だけ作る
 - `review.md`: 確認結果を README から分けたい時だけ作る
+
+## 開発 work に最低限ほしい項目
+- `Repo State`: branch / upstream / main との差分状態
+- `Assigned Roles`: 役割分担
+- `Chosen Implementation Direction`: 実装方針
+- `Verification`: 実行した検証
+- `Remaining Risks`: PR 前後に残るリスク
 
 ## 役割
 - `assistant-agent`: 普段の会話窓口。相談整理、作業タイプ判定、担当割当の起案
@@ -142,6 +165,7 @@ security-agent と github-operator を含めて、公開前チェックを並列
 
 ## 並列化の考え方
 - `researcher` と `security-agent` は早い段階で並列に走らせる
+- 実装前に必要なら `reviewer` を先に走らせて、設計や回帰点をチェックする
 - 実装が必要なら `repo-implementer` を起動し、その後 `qa-runner` と `reviewer` を並列で走らせる
 - GitHub に反映する時だけ `github-operator` を使う
 - 継続利用する知見は最後に `context-curator` が `agent/context/` と `agent/decisions.md` に圧縮する

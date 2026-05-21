@@ -24,6 +24,13 @@
 - Parallelizable tasks
 - Notes
 
+## 開発 work で追加したい項目
+- Repo State
+- Assigned Roles
+- Chosen Implementation Direction
+- Verification
+- Remaining Risks
+
 ## よく作るファイル
 - `README.md`: その作業フォルダの定義
 - `intake.md`: 最初の相談メモ
